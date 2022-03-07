@@ -17,7 +17,7 @@ export const walletConnect = new WalletConnectConnector({
     pollingInterval: 12000
 })
 
-const WalletconnectContextProvider: FC = ({ children }) => {
+const WalletconnectContextProvider = ({ children }) => {
     const { active: networkActive, error: networkError, activate: activateNetwork, connector } = useWeb3React()
     const provider = walletConnect.walletConnectProvider
     useEffect(() => {
@@ -30,7 +30,7 @@ const WalletconnectContextProvider: FC = ({ children }) => {
     )
 }
 
-const MetamaskProvider: FC = ({ children }) => {
+const MetamaskProvider = ({ children }) => {
     const { active: networkActive, error: networkError, activate: activateNetwork, connector } = useWeb3React()
     const [loaded, setLoaded] = useState(false)
     const checkIsAuthorized = async () => {
@@ -47,7 +47,7 @@ const MetamaskProvider: FC = ({ children }) => {
     const isProvider = async () => {
         const wcLocalStorage = localStorage.getItem('walletconnect')
         if(wcLocalStorage){
-            const isConnected = JSON.parse(wcLocalStorage!).connected
+            const isConnected = JSON.parse(wcLocalStorage).connected
             console.log(isConnected === 'true')
             if(isConnected){
                 activateNetwork(walletConnect)
